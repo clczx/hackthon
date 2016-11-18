@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>大数据创新中心 - SmartBeta</title>
+    </head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+    <body>
+        <div class="container-fluid">
+            <div class="header">
+                <ul class="nav nav-pills pull-right" role="tablist">
+                  <li role="presentation"><a href="#">产品介绍</a></li>
+                  <li role="presentation"><a href="#">核心理论</a></li>
+                  <li role="presentation"><a href="#">登录</a></li>
+                  <li role="presentation"><a href="#">注册</a></li>
+                </ul>
+                <h3 class="text-muted">Smart Beta</h3>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="center">
+                <div class="row">
+                    <div class="col-md-6">
+                    <input type="text" class="form-control" id="search" data-provide="typeahead" placeholder="请输入基金代码或名称" />
+                    </div>
+                    <button class="btn btn-wide btn-primary mll">查询</button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="contain-fluid">
+                <div class="row">
+                               <p>&copy;2016 <a href="http://www.yixin.com">宜信</a>・<a href="http://cbdic.creditease.cn">大数据创新中心</a></a> 版权所有</p>
+
+                </div>
+            </div>
+        </footer>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+        <script>
+        var subjects = ['PHP', 'MySQL', 'SQL', 'PostgreSQL', 'HTML', 'CSS', 'HTML5', 'CSS3', 'JSON'];
+        $('#search').typeahead({
+            source: function (query, process) {
+                return $.get("http://localhost:9000/api/tools/app/suggest", {"query": query}, function (data) {
+                if (data.status == 'Ok')
+                    return process(data.result);
+            });
+        }
+        });
+
+        </script>
+    </body>
+</html>
