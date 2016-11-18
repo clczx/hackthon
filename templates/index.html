@@ -14,12 +14,12 @@
 	<script src="static/javascript/ease.js"></script>
 </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-default navbar-fixed-top" style='background:#272727' role="navigation">
         <div class="navbar-header page-scroll">
-            <a class="navbar-brand page-scroll" href="#page-top">Smart Beta</a>
+            <a class="page-scroll" href="#page-top" style="padding-left:50px"><img src="static/img/logo.PNG" height=50px></a>
         </div>
 
-        <div class="collapse navbar-collapse navbar-ex1-collapse" style="padding-right:50px;">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" style="padding-right:50px;background:#272727">
             <ul class="nav navbar-nav" style="float:right;">
                 <li class="hidden">
                     <a class="page-scroll" href="#page-top"></a>
@@ -31,7 +31,12 @@
                     <a class="page-scroll" href="#theory">核心理论</a>
                 </li>
                 <li>
-					<a class="page-scroll" href="#">注册/登录</a>
+					{%if not username%}
+					<a class="page-scroll" href="/login">登录</a>
+					{%else%}
+					<a class="page-scroll" href="#">{{username}}</a></li><li>
+					<a class="page-scroll" href="/logout">登出</a>
+					{%endif%}
                 </li>
             </ul>
         </div>
@@ -53,22 +58,9 @@
         </div>
 	</section>
 	<section id="about" class="about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>About Section</h1>
-                </div>
-            </div>
-        </div>
+		<img src="static/img/bg1.png" style="padding-top:0px" width=100% height=100%> 
     </section>
 	<section id="theory" class="services-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Services Section</h1>
-                </div>
-            </div>
-        </div>
     </section>
     <footer>
         <div class="contain-fluid">

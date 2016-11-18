@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import marshal
 import json
 from datetime import datetime, date, timedelta
@@ -17,10 +17,14 @@ app.config.update(
 mysql = MySQL(app)
 
 ISOTIMEFORMAT='%Y-%m-%d'
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    username = None
+    if 'username' in session:
+	username = session["username"]
+    return render_template('index.html', username=username)
 
 
 @app.route('/fundselector', methods=['POST', 'GET'])
@@ -177,6 +181,22 @@ def delete_user_fund():
         result = {"status" : "failed", "result": "invalid query"}
         return jsonify(**result)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+    return '''
+        <form action="" method="post">
+            <p><input type=text name=username>
+            <p><input type=submit value=Login>
+        </form>
+    '''
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route('/api/fund/selector', methods=['GET'])
 def fund_selector():
