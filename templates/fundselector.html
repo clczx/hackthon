@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>基金挑选</title>
+    </head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/javascript/bootstrap3-typeahead.min.js"></script>
+	<script src="static/javascript/echarts.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/dashboard.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Smart Beta</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
+          <form class="navbar-form navbar-left" action="/fundinfo" method="post">
+            <input type="text" class="form-control" placeholder="Search..." name="fundquery">
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="fundinfo">查询</a></li>
+            <li><a href="fundstar">收藏</a></li>
+            <li class="active"><a href="#">挑选</a></li>
+          </ul>
+		</div>
+	  </div>
+	</div>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<div class="row">
+			<h3>筛选条件</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label><h4>风险: </h4></label>
+			</div>
+			<div id="radioBtn" class="btn-group col-md-6">
+			  <button type="button" class="btn btn-default active" data-toggle="risk" data-title="H">高风险</button>
+			  <button type="button" class="btn btn-default" data-toggle="risk" data-title="MH">中高风险</button>
+			  <button type="button" class="btn btn-default" data-toggle="risk" data-title="M">中风险</button>
+			  <button type="button" class="btn btn-default" data-toggle="risk" data-title="ML">中低风险</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2" >
+				<label><h4>投资规模: </h4></label>
+			</div>
+			<div id="radioBtn" class="btn-group col-md-4">
+			  <button type="button" class="btn btn-default active" data-toggle="size" data-title="S">中小盘</button>
+			  <button type="button" class="btn btn-default" data-toggle="size" data-title="L">大盘</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label><h4>投资风格: </h4></label>
+			</div>
+			<div id="radioBtn" class="btn-group col-md-4">
+			  <button type="button" class="btn btn-default active" data-toggle="value" data-title="V">价值</button>
+			  <button type="button" class="btn btn-default" data-toggle="value" data-title="B">平衡</button>
+			  <button type="button" class="btn btn-default" data-toggle="value" data-title="G">成长</button>
+			</div>
+			<div class="col-md-2" id="submit">
+			 	<button type="button" class="btn btn-default">查询</button>
+			</div>
+		</div>
+
+         <div className="row">
+            <div className="col-md-12">
+                <table id="fund_info_table" class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr name="fund_info-thead"></tr>
+                    </thead>
+                    <tbody name="fund_info-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+	</div>
+	<script>
+		$('#radioBtn button').on('click', function(){
+    		var sel = $(this).data('title');
+    		var tog = $(this).data('toggle');
+    		$('#'+tog).prop('value', sel);
+
+    		$('button[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    		$('button[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+		});
+
+
+        var tabelTile = ["基金代码", "基金名称", "累计收益", "年化收益", "最大回撤", "波动率", "夏普比率"];
+
+
+		$('#submit').on('click', function(){
+			var risk = $('button[data-toggle="risk"].active').text();
+			var size = $('button[data-toggle="size"].active').text();
+			var value = $('button[data-toggle="value"].active').text();
+			var tags = risk + ',' + size + ',' + value;
+			console.log(tags);
+			$.get("http://localhost:5000/api/fund/selector", {"tags": tags}, function (data) {
+			if (data.status == 'Ok') {
+				 var thead = $("tr[name='fund_info-thead']");
+       			 thead.empty();
+       			 tabelTile.map(function (item) {
+			            thead.append(
+			                "<th>" + item + "</th>"
+			            );
+			     });
+
+		      	var tbody = $("#fund_info_table tbody[name='fund_info-tbody']");
+                tbody.empty();
+                data['result'].map(function(items) {
+                    var tr = $("<tr><td>" + items[0] + "</td></tr>");
+                    tr.append("<td>" + items[1] + "</td>");
+                    tr.append("<td>" + items[2] + "</td>");
+                    tr.append("<td>" + items[3] + "</td>");
+                    tr.append("<td>" + items[4] + "</td>");
+                    tr.append("<td>" + items[5] + "</td>");
+                    tr.append("<td>" + items[6] + "</td>");
+                    tbody.append(tr);
+                });
+			} else {
+				alert("查询出现问题");
+			}
+		});
+		});
+	</script>
+	</body>
+
+
+

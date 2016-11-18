@@ -22,6 +22,12 @@ ISOTIMEFORMAT='%Y-%m-%d'
 def index():
     return render_template('index.html')
 
+
+@app.route('/fundselector', methods=['POST', 'GET'])
+def fundselector():
+    return render_template('fundselector.html')
+
+
 @app.route('/fundinfo', methods=['POST', 'GET'])
 def fundinfo():
     fundinfo = None
@@ -170,6 +176,29 @@ def delete_user_fund():
     else:
         result = {"status" : "failed", "result": "invalid query"}
         return jsonify(**result)
+
+
+@app.route('/api/fund/selector', methods=['GET'])
+def fund_selector():
+    tags = request.args.get('tags', None)
+    if tags:
+        cur = mysql.connection.cursor()
+
+        data = []
+        sql = "select code, fund_name, acc_return, annaul_return, max_drawdown, volatility, sharp_ratio \
+            from fund_overview where tags = '%s' order by annaul_return desc limit 10" % (tags)
+        cur.execute(sql)
+        for rz in cur.fetchall():
+            data.append(rz)
+        result = {"status" : "Ok", 'result': data}
+        return jsonify(**result)
+
+        result = {"status" : "Ok"}
+        return jsonify(**result)
+    else:
+        result = {"status" : "failed", "result": "invalid query"}
+        return jsonify(**result)
+
 
 
 def get_acc_return(daily_nav):
