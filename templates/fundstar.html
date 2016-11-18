@@ -55,41 +55,22 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>基金代码</th>
+                  <th>基金名称</th>
+                  <th>关键词</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
+				{% for entry in entries %}
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+				  <td>{{entries.index(entry)+1}}</td>
+				  <td><a href="/fundinfo?fund_code={{entry[0]}}">{{entry[0]}}</td>
+				  <td><a href="/fundinfo?fund_code={{entry[0]}}">{{entry[1]}}</td>
+				  <td>{{entry[2]}}</td>
+				  <td><a href="/del">删除</a></td>
                 </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
+				{%endfor%}
 			  </tbody>
 			</table>
 	</div>

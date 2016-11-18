@@ -26,8 +26,12 @@ def index():
 def fundinfo():
     fundinfo = None
     funddata = None
+    fundquery = None
     if request.method == "POST":
         fundquery = request.form["fundquery"]
+    if request.method == "GET":
+        fundquery = request.args.get("fund_code")
+    if fundquery:
         print fundquery
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         sql = "select * from fund_overview where code='%s' or fund_name='%s' " % (fundquery, fundquery)
@@ -42,7 +46,20 @@ def fundinfo():
 
 @app.route('/fundstar', methods=['POST', 'GET'])
 def fundstar():
-    return render_template('fundstar.html')
+    funddata = None
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    sql = "select * from user_fund_saving where user_id=1"
+    cur.execute(sql)
+    funds = []
+    entries = []
+    for rz in cur.fetchall():
+        funds.append(rz["fund_code"])
+    for code in funds:
+        sql = "select * from fund_overview where code=%s" % (code)
+        cur.execute(sql)
+        ret = cur.fetchall()[0]
+        entries.append([ret["code"], ret["fund_name"], ret["tags"]])
+    return render_template('fundstar.html', entries = entries)
 
 
 @app.route('/api/suggest', methods=['POST', 'GET'])
