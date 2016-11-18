@@ -36,7 +36,7 @@
 						<a class="page-scroll" href="#">注册/登录</a>
                     </li>
                 </ul>
-            </div>        
+            </div>
 		</nav>
 		<section id="intro" class="intro-section">
 		<div class="container-fluid">
@@ -44,7 +44,7 @@
                 <div class="row head" align=center>
                 <div class="col-lg-12">
                     <div class="input-group">
-                        <input type="text" class="form" placeholder="请输入基金名称/代码" style="width:500px; align:center; height:35px;">
+                        <input type="text" class="form" id="search" placeholder="请输入基金名称/代码" style="width:500px; align:center; height:35px;">
 						<button class="btn btn-wide btn-primary mll">Go!</button>
                     </div>
                 </div>
@@ -79,17 +79,15 @@
             </div>
         </footer>
         <script>
-        var subjects = ['PHP', 'MySQL', 'SQL', 'PostgreSQL', 'HTML', 'CSS', 'HTML5', 'CSS3', 'JSON'];
-        $('#search').typeahead({
+            $('#search').typeahead({
 
-            source: function (query, process) {
-                return $.get("http://localhost:5000/api/suggest", {"query": query}, function (data) {
-                if (data.status == 'Ok')
-                    console.log(data.result);
-                    return process(data.result);
+                source: function (query, process) {
+                    return $.get("http://localhost:5000/api/suggest", {"query": query}, function (data) {
+                    if (data.status == 'Ok')
+                        return process(data.result);
+                });
+            }
             });
-        }
-        });
 
         </script>
     </body>
