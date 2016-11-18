@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="static/javascript/bootstrap3-typeahead.min.js"></script>
+	<script src="static/javascript/echarts.min.js"></script>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/dashboard.css">
 </head>
@@ -83,13 +84,13 @@
             <table class="table table-striped">
               <tbody>
                 <tr>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
+                  <td>1234556777<div id="main1" style="height:400px;width:400px;float:left;"></div></td>
+                  <td>1234000000<div id="main2" style="height:400px;width:400px;float:left;"></div></td>
                 </tr>
                 <tr>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                </tr>
+                  <td><div id="main3" style="height:400px;width:400px;float:left;"></div></td>
+				  <td><img src="static/pic1.png" height=400px width=400px></td>
+				</tr>
 			  </tbody>
 			</table>
 		  <h5 class="sub-header">>变化趋势</h5>
@@ -97,91 +98,216 @@
 	</div>
 </body>
 
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
-        require.config({
-            paths: {
-                echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
-        require(
-            [
-                'echarts',
-                'echarts/chart/radar'
-            ],
-            function (ec) {
-                var myChart = ec.init(document.getElementById('main')); 
+         var myChart = echarts.init(document.getElementById('main')); 
                 
-                var option = {
-					polar : [
-						{
-							indicator : [
-								{text : '市场', max  : 1},
-								{text : '规模', max  : 1},
-								{text : '价值', max  : 1},
-								{text : '动量', max  : 1},
-							],
-						}
-					],
-					legend: {
-						orient : 'vertical',
-						x : 'right',
-						y : 'bottom',
-						data:['最近一年']
-					},
-					series : [
-						{
-							type: 'radar',
-							itemStyle: {
-								normal: {
-									areaStyle: {
-										type: 'default'
-									}
-								}
-							},
-							data : [
-								{
-									value : [{{funddata["percentile"][0]}},{{funddata["percentile"][1]}},{{funddata["percentile"][2]}},{{funddata["percentile"][3]}}],
-									name : "最近一年" 
-								}
-							]
-						}
-					]                
-				};
-        
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
+                var lineStyle = {
+    normal: {
+        width: 1,
+        opacity: 0.5
+    }
+};
+
+option = {
+    backgroundColor: '#161627',
+    title: {
+        text: '',
+        left: 'center',
+        textStyle: {
+            color: '#eee'
+        }
+    },
+    legend: {
+        bottom: 5,
+        data: ['北京'],
+        itemGap: 20,
+        textStyle: {
+            color: '#fff',
+            fontSize: 14
+        },
+        selectedMode: 'single'
+    },
+    radar: {
+        indicator: [
+            {name: '市场', max: 1},
+            {name: '规模', max: 1},
+            {name: '价值', max: 1},
+            {name: '动量', max: 1},
+        ],
+        shape: 'circle',
+        splitNumber: 5,
+        name: {
+            textStyle: {
+                color: 'rgb(238, 197, 102)'
             }
-        );
-        require(
-            [
-                'echarts',
-                'echarts/chart/radar'
-            ],
-            function (ec) {
-                var myChart = ec.init(document.getElementById('main_')); 
-                
-                var option = {
-					polar : [
-						{
-							indicator : [
-								{text : '市场', max  : 1},
-								{text : '规模', max  : 1},
-								{text : '价值', max  : 1},
-								{text : '动量', max  : 1},
-							],
-						}
-					],
-					legend: {
-						orient : 'vertical',
-						x : 'right',
-						y : 'bottom',
-						data:['Q1','Q2','Q3','Q4']
-					},
-					series : [
-						{
-							type: 'radar',
-							data : [
+        },
+        splitLine: {
+            lineStyle: {
+                color: [
+                    'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
+                    'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+                    'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+                ].reverse()
+            }
+        },
+        splitArea: {
+            show: false
+        },
+        axisLine: {
+            lineStyle: {
+                color: 'rgba(238, 197, 102, 0.5)'
+            }
+        }
+    },
+    series: [
+        {
+            name: '1y',
+            type: 'radar',
+            lineStyle: lineStyle,
+			data: [{
+				value: [{{funddata["percentile"][0]}},{{funddata["percentile"][1]}},{{funddata["percentile"][2]}},{{funddata["percentile"][3]}}]
+			}],
+            symbol: 'none',
+            itemStyle: {
+                normal: {
+                    color: '#F9713C'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    opacity: 0.1
+                }
+            }
+        },
+    ]
+};
+myChart.setOption(option); 
+
+var myChart2 = echarts.init(document.getElementById('main2'));
+option2 = {
+    backgroundColor: '#2c343c',
+
+    title: {
+        text: '规模',
+        left: 'center',
+        top: 20,
+        textStyle: {
+            color: '#ccc'
+        }
+    },
+    series : [
+        {
+            name:'',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '50%'],
+            data:[
+                {value:{{funddata["percentile"][1]}}, name:'小盘'},
+                {value:{{1-funddata["percentile"][1]}}, name:'大盘'}
+            ].sort(function (a, b) { return a.value - b.value}),
+            roseType: 'angle',
+            label: {
+                normal: {
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    },
+                    smooth: 0.2,
+                    length: 10,
+                    length2: 20
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#c23531',
+                    shadowBlur: 200,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+myChart2.setOption(option2); 
+
+var myChart3 = echarts.init(document.getElementById('main3'));      
+option3 = {
+    tooltip : {
+        formatter: "{a} <br/>{b} : {c}%"
+    },
+    series: [
+        {
+            name: '价值',
+            type: 'gauge',
+            data: [{value: {{"%.2f" % (100*funddata["percentile"][2])}}, name: '价值'}]
+        }
+    ]
+};
+myChart3.setOption(option3); 
+
+var myChart_ = echarts.init(document.getElementById('main_'));                 
+option_ = {
+    backgroundColor: '#161627',
+    title: {
+        text: '',
+        left: 'center',
+        textStyle: {
+            color: '#eee'
+        }
+    },
+    legend: {
+        bottom: 5,
+        data: ['北京'],
+        itemGap: 20,
+        textStyle: {
+            color: '#fff',
+            fontSize: 14
+        },
+        selectedMode: 'single'
+    },
+    radar: {
+        indicator: [
+            {name: '市场', max: 1},
+            {name: '规模', max: 1},
+            {name: '价值', max: 1},
+            {name: '动量', max: 1},
+        ],
+        shape: 'circle',
+        splitNumber: 5,
+        name: {
+            textStyle: {
+                color: 'rgb(238, 197, 102)'
+            }
+        },
+        splitLine: {
+            lineStyle: {
+                color: [
+                    'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
+                    'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+                    'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+                ].reverse()
+            }
+        },
+        splitArea: {
+            show: false
+        },
+        axisLine: {
+            lineStyle: {
+                color: 'rgba(238, 197, 102, 0.5)'
+            }
+        }
+    },
+    series: [
+        {
+            name: '1y',
+            type: 'radar',
+            lineStyle: lineStyle,
+            data : [
 								{
 									value : [{{funddata["period"]["Q1"][0]}},{{funddata["period"]["Q1"][1]}},{{funddata["period"]["Q1"][2]}},{{funddata["period"]["Q1"][3]}}],
 									name : "Q1"
@@ -198,15 +324,23 @@
 									value : [{{funddata["period"]["Q4"][0]}},{{funddata["period"]["Q4"][1]}},{{funddata["period"]["Q4"][2]}},{{funddata["period"]["Q4"][3]}}],
 									name : "Q4"
 								},
-							]
-						}
-					]                
-				};
-        
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
+					],
+            symbol: 'none',
+            itemStyle: {
+                normal: {
+                    color: '#F9713C'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    opacity: 0.1
+                }
             }
-        );    
+        },
+    ]
+};                // 为echarts对象加载数据 
+myChart_.setOption(option_); 
+
 	</script>
 	{%endif%}
 	{%endif%}
