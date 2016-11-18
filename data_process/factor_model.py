@@ -78,7 +78,6 @@ def run(dt):
             if dt in return_daily_list:
                 x.append(factor_daily[dt])
                 y.append(return_daily_list[dt])
-#        print x[0], y[0]
         if len(x) > 200:
             result_data = factor_analysis(x, y)
             json_data =  json.dumps(result_data)
