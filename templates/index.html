@@ -9,29 +9,67 @@
     <script type="text/javascript" src="static/javascript/bootstrap3-typeahead.min.js"></script>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/scrolling-nav.css">
+	<script src="static/javascript/scrolling.js"></script>
+	<script src="static/javascript/ease.js"></script>
 </head>
-    <body>
-        <div class="container-fluid">
-            <div class="header">
-                <ul class="nav nav-pills pull-right" role="tablist">
-                  <li role="presentation"><a href="#">产品介绍</a></li>
-                  <li role="presentation"><a href="#">核心理论</a></li>
-                  <li role="presentation"><a href="#">登录</a></li>
-                  <li role="presentation"><a href="#">注册</a></li>
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+       <div class="navbar-header page-scroll">
+                <a class="navbar-brand page-scroll" href="#page-top">Smart Beta</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse" style="padding-right:50px;">
+                <ul class="nav navbar-nav" style="float:right;">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">产品介绍</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#theory">核心理论</a>
+                    </li>
+                    <li>
+						<a class="page-scroll" href="#">注册/登录</a>
+                    </li>
                 </ul>
-                <h3 class="text-muted">Smart Beta</h3>
+            </div>        
+		</nav>
+		<section id="intro" class="intro-section">
+		<div class="container-fluid">
+            <div id="center">
+                <div class="row head" align=center>
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" class="form" placeholder="请输入基金名称/代码" style="width:500px; align:center; height:35px;">
+						<button class="btn btn-wide btn-primary mll">Go!</button>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div id="center">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" data-provide="typeahead" id="search" />
-                    </div>
-                    <button class="btn btn-wide btn-primary mll">查询</button>
+		</section>
+		<section id="about" class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>About Section</h1>
                 </div>
             </div>
         </div>
+    </section>
+	<section id="theory" class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Services Section</h1>
+                </div>
+            </div>
+        </div>
+    </section>
         <footer>
             <div class="contain-fluid">
                 <div class="row">

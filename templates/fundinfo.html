@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>基金信息</title>
+    </head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/javascript/bootstrap3-typeahead.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/dashboard.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Smart Beta</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
+          <form class="navbar-form navbar-left">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">查询</a></li>
+            <li><a href="fundstar">收藏</a></li>
+          </ul>
+		</div>
+	  </div>
+	</div>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h3 class="page-header">基金名称</h3>
+          <h4>基金代码</h4>
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+				<h4>关键词:  评级:</h4><a href=#>加入收藏</a>
+            </div>
+		  </div>
+		  <h5 class="sub-header">>基本信息</h5>
+		  <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+			  </tbody>
+			</table>
+		  <h5 class="sub-header">>维度解析</h5>
+		  <div id="main" style="height:400px;width:600px;"></div>
+
+		  <div class="table-responsive">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                </tr>
+                <tr>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                </tr>
+			  </tbody>
+			</table>
+		  <h5 class="sub-header">>变化趋势</h5>
+	<div id="main_" style="height:400px;width:600px;"></div>
+	</div>
+</body>
+
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+					polar : [
+						{
+							indicator : [
+								{text : '市场', max  : 1},
+								{text : '规模', max  : 1},
+								{text : '价值', max  : 1},
+								{text : '动量', max  : 1},
+							],
+						}
+					],
+					legend: {
+						orient : 'vertical',
+						x : 'right',
+						y : 'bottom',
+						data:['最近一年']
+					},
+					series : [
+						{
+							type: 'radar',
+							itemStyle: {
+								normal: {
+									areaStyle: {
+										type: 'default'
+									}
+								}
+							},
+							data : [
+								{
+									value : [0.1,0.2,0.3,0.4],
+									name : "最近一年" 
+								}
+							]
+						}
+					]                
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('main_')); 
+                
+                var option = {
+					polar : [
+						{
+							indicator : [
+								{text : '市场', max  : 1},
+								{text : '规模', max  : 1},
+								{text : '价值', max  : 1},
+								{text : '动量', max  : 1},
+							],
+						}
+					],
+					legend: {
+						orient : 'vertical',
+						x : 'right',
+						y : 'bottom',
+						data:['Q1','Q2','Q3','Q4']
+					},
+					series : [
+						{
+							type: 'radar',
+							data : [
+								{
+									value : [0.1,0.2,0.3,0.4],
+									name : "Q1"
+								},
+								{
+									value : [0.1,0.2,0.3,0.4],
+									name : "Q2"
+								},
+								{
+									value : [0.1,0.2,0.3,0.4],
+									name : "Q3"
+								},
+								{
+									value : [0.1,0.2,0.3,0.4],
+									name : "Q4"
+								},
+							]
+						}
+					]                
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );    
+	</script>
+

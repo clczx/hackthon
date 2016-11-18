@@ -8,6 +8,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/fundinfo', methods=['POST', 'GET'])
+def fundinfo():
+    return render_template('fundinfo.html')
+
+@app.route('/fundstar', methods=['POST', 'GET'])
+def fundstar():
+    return render_template('fundstar.html')
+
 @app.route('/api/suggest', methods=['POST', 'GET'])
 def get_suggest():
     query = request.args.get('query', None)
