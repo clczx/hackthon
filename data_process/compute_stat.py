@@ -48,8 +48,6 @@ def process():
                 if count % 1000 == 0:
                     conn.commit()
     conn.commit()
-
-
     db_close(conn,cr)
 
 if __name__ == "__main__":

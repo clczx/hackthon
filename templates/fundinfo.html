@@ -49,9 +49,9 @@
 	{%else%}
 		<h3 class="page-header">{{ fund["fund_name"] }}</h3>
 		<h4>基金代码:{{ fund["code"] }}</h4>
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-				<h4>关键词:  评级:</h4><a href=#>加入收藏</a>
+          <div class="row">
+            <div class="col-sm-5 placeholder">
+				<h4>关键词: {{ fund["tags"] }} 评级: {{ fund["level"] }}</h4><a href=#>加入收藏</a>
             </div>
 		  </div>
 		  <h5 class="sub-header">>基本信息</h5>

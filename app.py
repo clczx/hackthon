@@ -39,9 +39,11 @@ def fundinfo():
                 funddata = json.loads(fundinfo["factor_percentile"])
     return render_template('fundinfo.html', fund=fundinfo, funddata=funddata)
 
+
 @app.route('/fundstar', methods=['POST', 'GET'])
 def fundstar():
     return render_template('fundstar.html')
+
 
 @app.route('/api/suggest', methods=['POST', 'GET'])
 def get_suggest():
