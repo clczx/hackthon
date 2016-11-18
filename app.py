@@ -121,6 +121,24 @@ def get_factor_market():
         return jsonify(**result)
 
 
+@app.route('/api/fund/saving', methods=['GET'])
+def saving_user_fund():
+    fund_code = request.args.get('fund_code', None)
+    user_id = request.args.get('user_id', 1)
+    if fund_code and user_id:
+
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        sql = "replace into user_fund_saving (user_id, fund_code, state) values(%s, %s, %s)"
+        cur.execute(sql, (user_id, fund_code, 1))
+        mysql.connection.commit()
+
+        result = {"status" : "Ok"}
+        return jsonify(**result)
+    else:
+        result = {"status" : "failed", "result": "invalid query"}
+        return jsonify(**result)
+
+
 def get_acc_return(daily_nav):
     ret = []
     for i in range(len(daily_nav)):

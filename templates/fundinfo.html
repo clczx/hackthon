@@ -51,7 +51,7 @@
 		<h4>基金代码:{{ fund["code"] }}</h4>
           <div class="row">
             <div class="col-sm-5 placeholder">
-				<h4>关键词: {{ fund["tags"] }} 评级: {{ fund["level"] }}</h4><a href=#>加入收藏</a>
+				<h4>关键词: {{ fund["tags"] }} 评级: {{ fund["level"] }}</h4><a href=# id="savings_fund">加入收藏</a>
             </div>
 		  </div>
 		  <h5 class="sub-header">>基本信息</h5>
@@ -403,6 +403,17 @@
 			}
 
 		});
+	$('#savings_fund').click(function(event) {
+		var fundCode = '{{ fund["code"] }}';
+		$.get("http://localhost:5000/api/fund/saving", {"fund_code": fundCode}, function (data) {
+			if (data.status == 'Ok') {
+				alert("收藏成功");
+			} else {
+				alert("收藏出现问题");
+			}
+		});
+
+	});
 
 	</script>
 	{%endif%}
