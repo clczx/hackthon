@@ -48,7 +48,7 @@ def fundinfo():
 def fundstar():
     funddata = None
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    sql = "select * from user_fund_saving where user_id=1"
+    sql = "select * from user_fund_saving where user_id=1 and state=1"
     cur.execute(sql)
     funds = []
     entries = []
@@ -147,6 +147,22 @@ def saving_user_fund():
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         sql = "replace into user_fund_saving (user_id, fund_code, state) values(%s, %s, %s)"
         cur.execute(sql, (user_id, fund_code, 1))
+        mysql.connection.commit()
+
+        result = {"status" : "Ok"}
+        return jsonify(**result)
+    else:
+        result = {"status" : "failed", "result": "invalid query"}
+        return jsonify(**result)
+
+@app.route('/api/fund/delete', methods=['GET'])
+def delete_user_fund():
+    fund_code = request.args.get('fund_code', None)
+    user_id = request.args.get('user_id', 1)
+    if fund_code and user_id:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        sql = "update user_fund_saving set state=%s where user_id=%s and fund_code=%s"
+        cur.execute(sql, (0, user_id, fund_code))
         mysql.connection.commit()
 
         result = {"status" : "Ok"}

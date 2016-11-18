@@ -68,10 +68,24 @@
 				  <td><a href="/fundinfo?fund_code={{entry[0]}}">{{entry[0]}}</td>
 				  <td><a href="/fundinfo?fund_code={{entry[0]}}">{{entry[1]}}</td>
 				  <td>{{entry[2]}}</td>
-				  <td><a href="/del">删除</a></td>
+				  <td><a href=# class="delete_saving" name={{entry[0]}}>删除</a></td>
                 </tr>
 				{%endfor%}
 			  </tbody>
 			</table>
 	</div>
+	<script>
+	$('.delete_saving').click(function(event) {
+		$.get("http://localhost:5000/api/fund/delete", {"fund_code": event.target.name}, function (data) {
+			if (data.status == 'Ok') {
+				alert("删除成功");
+				location.reload();
+			} else {
+				alert("删除出现问题");
+				location.reload();
+			}
+		});
+
+	});
+	</script>
 </body>
