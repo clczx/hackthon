@@ -22,7 +22,7 @@ def process():
         print "code:" + code
         print count 
         count += 1
-        if count > 4150:
+        if count > 0:
             adjust_daily_return = []
             sql = "select ADJUST_NAV, secShortName from fund_nav where code = %s and ADJUST_NAV is not NULL"
             cr.execute(sql, (code, ))
