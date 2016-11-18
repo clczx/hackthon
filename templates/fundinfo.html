@@ -39,7 +39,7 @@
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">查询</a></li>
             <li><a href="fundstar">收藏</a></li>
-            <li><a href="#">挑选</a></li>
+            <li><a href="#fundselector">挑选</a></li>
           </ul>
 		</div>
 	  </div>
@@ -349,6 +349,7 @@
 
 		var marketChart = echarts.init(document.getElementById('market_chart'));
 		var fundCode = '{{ fund["code"] }}';
+		var fundName = '{{ fund["fund_name"] }}';
 		console.log(fundCode);
 		$.get("http://localhost:5000/api/factor/market", {"query": fundCode}, function (data) {
 
@@ -364,10 +365,9 @@
 					    },
 					    tooltip: {
 					        trigger: 'axis'
-
 					    },
 					    legend: {
-    						data:['沪深300',fundCode]
+    						data:['沪深300', fundName]
 						},
 						xAxis: {
 					        type: 'category',
@@ -392,7 +392,7 @@
 					            data: hsList
 					        },
 					        {
-					            name: fundCode,
+					            name: fundName,
 					            type:'line',
 					            stack: '总量',
 					            data: fundList

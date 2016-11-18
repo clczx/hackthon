@@ -34,6 +34,8 @@ def get_max_draw_down(acc_returns):
 
 
 def get_sharpe(annual_rate, volatility):
+    if volatility == 0:
+        return 0
     rf = 3.5 /100
     sharpe = (annual_rate - rf) / volatility
     return sharpe

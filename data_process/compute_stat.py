@@ -13,6 +13,14 @@ def process():
     db_config = setting.DATABASES['fund_stat']
     conn,cr = create_db_connection(db_config['HOST'],db_config['DB'],db_config['PORT'],db_config['USER'],db_config['PASSWD'])
 
+    fund_overview_code_set = set([])
+    sql = "select code from fund_overview"
+    cr.execute(sql)
+    for rz in cr.fetchall():
+        code = rz['code']
+        fund_overview_code_set.add(code)
+
+
     sql = "select distinct code from fund_nav where code is not NULL"
 
     cr.execute(sql)
@@ -42,9 +50,14 @@ def process():
                 sharp_ratio = evaluate.get_sharpe(annual_rate, volatility)
                 
                 print fund_name, acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio
-                sql = "insert into fund_overview (code, fund_name, acc_return, annaul_return, max_drawdown, volatility, sharp_ratio) \
-                       values (%s, %s, %s, %s, %s, %s, %s )"
-                cr.execute(sql, (code, fund_name, acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio ))
+                if code in fund_overview_code_set:
+                    sql = "update fund_overview set acc_return = %s, annaul_return = %s,  max_drawdown = %s, volatility = %s, \
+                           sharp_ratio = %s where code = %s "
+                    cr.execute(sql, (acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio, code))
+                else: 
+                    sql = "insert into fund_overview (code, fund_name, acc_return, annaul_return, max_drawdown, volatility, sharp_ratio) \
+#                       values (%s, %s, %s, %s, %s, %s, %s )"
+                    cr.execute(sql, (code, fund_name, acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio ))
                 if count % 1000 == 0:
                     conn.commit()
     conn.commit()
