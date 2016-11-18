@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import marshal
+import json
 
 import MySQLdb
 from flask_mysqldb import MySQL
@@ -20,7 +21,20 @@ def index():
 
 @app.route('/fundinfo', methods=['POST', 'GET'])
 def fundinfo():
-    return render_template('fundinfo.html')
+    fundinfo = None
+    funddata = None
+    if request.method == "POST":
+        fundquery = request.form["fundquery"]
+        print fundquery
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        sql = "select * from fund_overview where code='%s' or fund_name='%s' " % (fundquery, fundquery)
+        cur.execute(sql)
+        result = cur.fetchall()
+        if len(result) != 0:
+            fundinfo = result[0]
+            if fundinfo["factor_percentile"]:
+                funddata = json.loads(fundinfo["factor_percentile"])
+    return render_template('fundinfo.html', fund=fundinfo, funddata=funddata)
 
 @app.route('/fundstar', methods=['POST', 'GET'])
 def fundstar():

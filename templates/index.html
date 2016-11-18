@@ -43,10 +43,12 @@
             <div id="center">
                 <div class="row head" align=center>
                 <div class="col-lg-12">
+					<form action="/fundinfo" method="post">
                     <div class="input-group">
-                        <input type="text" class="form" id="search" placeholder="请输入基金名称/代码" style="width:500px; align:center; height:35px;">
-						<button class="btn btn-wide btn-primary mll">Go!</button>
+                        <input type="text" class="form" id="search" name="fundquery" placeholder="请输入基金名称/代码" style="width:500px; align:center; height:35px;">
+						<input type="submit" class="btn btn-wide btn-primary mll" value="Go!">
                     </div>
+					</form>
                 </div>
             </div>
             </div>

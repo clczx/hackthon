@@ -23,8 +23,8 @@
           <a class="navbar-brand" href="/">Smart Beta</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
-          <form class="navbar-form navbar-left">
-            <input type="text" class="form-control" placeholder="Search...">
+          <form class="navbar-form navbar-left" action="/fundinfo" method="post">
+            <input type="text" class="form-control" placeholder="Search..." name="fundquery">
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Help</a></li>
@@ -43,8 +43,11 @@
 	  </div>
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h3 class="page-header">基金名称</h3>
-          <h4>基金代码</h4>
+	{%if not fund%}
+	<h3 class="page-header">基金不存在</h3>
+	{%else%}
+		<h3 class="page-header">{{ fund["fund_name"] }}</h3>
+		<h4>基金代码:{{ fund["code"] }}</h4>
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
 				<h4>关键词:  评级:</h4><a href=#>加入收藏</a>
@@ -55,23 +58,24 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>累计收益</th>
+                  <th>年化收益</th>
+                  <th>最大回撤</th>
+                  <th>波动率</th>
+                  <th>夏普比例</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+					<td>{{ "%.2f%%" % (fund["acc_return"]*100) }}</td>
+					<td>{{ "%.2f%%" % (fund["annaul_return"]*100) }}</td>
+					<td>{{ "%.2f%%" % (fund["max_drawdown"]*100) }}</td>
+					<td>{{ "%.2f%%" % (fund["volatility"]*100) }}</td>
+					<td>{{ "%.2f" % fund["sharp_ratio"] }}</td>
                 </tr>
 			  </tbody>
 			</table>
+		{%if funddata%}
 		  <h5 class="sub-header">>维度解析</h5>
 		  <div id="main" style="height:400px;width:600px;"></div>
 
@@ -137,7 +141,7 @@
 							},
 							data : [
 								{
-									value : [0.1,0.2,0.3,0.4],
+									value : [{{funddata["percentile"][0]}},{{funddata["percentile"][1]}},{{funddata["percentile"][2]}},{{funddata["percentile"][3]}}],
 									name : "最近一年" 
 								}
 							]
@@ -179,19 +183,19 @@
 							type: 'radar',
 							data : [
 								{
-									value : [0.1,0.2,0.3,0.4],
+									value : [{{funddata["period"]["Q1"][0]}},{{funddata["period"]["Q1"][1]}},{{funddata["period"]["Q1"][2]}},{{funddata["period"]["Q1"][3]}}],
 									name : "Q1"
 								},
 								{
-									value : [0.1,0.2,0.3,0.4],
+									value : [{{funddata["period"]["Q2"][0]}},{{funddata["period"]["Q2"][1]}},{{funddata["period"]["Q2"][2]}},{{funddata["period"]["Q2"][3]}}],
 									name : "Q2"
 								},
 								{
-									value : [0.1,0.2,0.3,0.4],
+									value : [{{funddata["period"]["Q3"][0]}},{{funddata["period"]["Q3"][1]}},{{funddata["period"]["Q3"][2]}},{{funddata["period"]["Q3"][3]}}],
 									name : "Q3"
 								},
 								{
-									value : [0.1,0.2,0.3,0.4],
+									value : [{{funddata["period"]["Q4"][0]}},{{funddata["period"]["Q4"][1]}},{{funddata["period"]["Q4"][2]}},{{funddata["period"]["Q4"][3]}}],
 									name : "Q4"
 								},
 							]
@@ -204,4 +208,7 @@
             }
         );    
 	</script>
+	{%endif%}
+	{%endif%}
+
 
