@@ -35,7 +35,6 @@ def get_suggest():
 
         data = []
         sql = "select code, fund_name from fund_overview where code like '%s%%' or fund_name like '%s%%' order by annaul_return desc limit 10" % (query, query)
-        print sql
         cur.execute(sql)
         for rz in cur.fetchall():
             code = rz['code'] 
@@ -46,7 +45,6 @@ def get_suggest():
             else:
                 data.append(fund_name)
 
-#        data = ['PHP', 'MySQL', 'SQL', 'PostgreSQL', 'HTML', 'CSS', 'HTML5', 'CSS3', 'JSON']
         result = {"status" : "Ok", 'result': data}
         return jsonify(**result)
     else:
