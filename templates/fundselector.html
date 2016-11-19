@@ -25,7 +25,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
+            {%if not username%}
+			<li><a href="/login">登录</a></li>
+			{%else%}
+			<li><a href="#">{{username}}</a></li>
+			<li><a href="/logout">登出</a></li>
+			{%endif%}
           </ul>
         </div>
       </div>
@@ -124,8 +129,8 @@
 		      	var tbody = $("#fund_info_table tbody[name='fund_info-tbody']");
                 tbody.empty();
                 data['result'].map(function(items) {
-                    var tr = $("<tr><td>" + items[0] + "</td></tr>");
-                    tr.append("<td>" + items[1] + "</td>");
+					var tr = $("<tr><td><a href='/fundinfo?fund_code="+items[0]+"' class='wind_red'>"+items[0]+"</td></tr>");
+                    tr.append("<td><a href='/fundinfo?fund_code="+items[0]+"' class='wind_red'>"+items[1]+"</td>");
                     tr.append("<td>" + items[2] + "</td>");
                     tr.append("<td>" + items[3] + "</td>");
                     tr.append("<td>" + items[4] + "</td>");

@@ -29,7 +29,10 @@ def index():
 
 @app.route('/fundselector', methods=['POST', 'GET'])
 def fundselector():
-    return render_template('fundselector.html')
+    username = None
+    if 'username' in session:
+	username = session["username"]
+    return render_template('fundselector.html', username=username)
 
 
 @app.route('/fundinfo', methods=['POST', 'GET'])
@@ -37,6 +40,9 @@ def fundinfo():
     fundinfo = None
     funddata = None
     fundquery = None
+    username = None
+    if 'username' in session:
+	username = session["username"]
     if request.method == "POST":
         fundquery = request.form["fundquery"]
     if request.method == "GET":
@@ -51,11 +57,14 @@ def fundinfo():
             fundinfo = result[0]
             if fundinfo["factor_percentile"]:
                 funddata = json.loads(fundinfo["factor_percentile"])
-    return render_template('fundinfo.html', fund=fundinfo, funddata=funddata)
+    return render_template('fundinfo.html', fund=fundinfo, funddata=funddata, username=username)
 
 
 @app.route('/fundstar', methods=['POST', 'GET'])
 def fundstar():
+    username = None
+    if 'username' in session:
+	username = session["username"]
     funddata = None
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     sql = "select * from user_fund_saving where user_id=1 and state=1"
@@ -69,7 +78,7 @@ def fundstar():
         cur.execute(sql)
         ret = cur.fetchall()[0]
         entries.append([ret["code"], ret["fund_name"], ret["tags"]])
-    return render_template('fundstar.html', entries = entries)
+    return render_template('fundstar.html', entries = entries, username=username)
 
 
 @app.route('/api/suggest', methods=['POST', 'GET'])

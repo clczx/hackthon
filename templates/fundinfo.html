@@ -29,7 +29,13 @@
             <input type="text" class="form-control" placeholder="Search..." name="fundquery">
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
+            {%if not username%}
+			<li><a href="/login">登录</a></li>
+			{%else%}
+			<li><a href="#">{{username}}</a></li>
+			<li><a href="/logout">登出</a></li>
+			{%endif%}
+
           </ul>
         </div>
       </div>
