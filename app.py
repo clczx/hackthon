@@ -104,7 +104,8 @@ def get_suggest():
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
         data = []
-        sql = "select code, fund_name from fund_overview where code like '%s%%' or fund_name like '%s%%' order by annaul_return desc limit 10" % (query, query)
+        sql = "select code, fund_name from fund_overview where code like '%s%%' or fund_name like '%s%%' and \
+            and annaul_return < 2 order by annaul_return desc limit 10" % (query, query)
         cur.execute(sql)
         for rz in cur.fetchall():
             code = rz['code'] 
