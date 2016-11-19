@@ -52,7 +52,13 @@
 		<p class="fund-name">{{ fund["fund_name"] }}</p>
 		<p class="fund-code">{{ fund["code"] }}</p>
 		<p><span class="font-size-m">关键词: </span><span class="keywords">{{ fund["tags"] }}</span><p>
-		<p><span class="font-size-m">评级: </span>{{ fund["level"] }}</span><p>
+		<p><span class="font-size-m">评级: </span> <span class="star_color" style="margin-left: 20px;">
+				{% for entry in range(fund["level"])  %}
+              		 <span class="glyphicon glyphicon-star"></span>
+				{%endfor%}
+			</span>
+
+		<p>
 		<p><a href=# id="savings_fund" style="color:#963947"><img src="static/img/red-star.png"/ style="width:20px">加入收藏</a></p>
 
 		 <div class="row margin_l_top">
