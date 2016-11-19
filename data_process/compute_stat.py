@@ -30,7 +30,7 @@ def process():
         print "code:" + code
         print count 
         count += 1
-        if count > 0:
+        if count > 349:
             adjust_daily_return = []
             sql = "select ADJUST_NAV, secShortName from fund_nav where code = %s and ADJUST_NAV is not NULL"
             cr.execute(sql, (code, ))
@@ -56,7 +56,7 @@ def process():
                     cr.execute(sql, (acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio, code))
                 else: 
                     sql = "insert into fund_overview (code, fund_name, acc_return, annaul_return, max_drawdown, volatility, sharp_ratio) \
-#                       values (%s, %s, %s, %s, %s, %s, %s )"
+    values (%s, %s, %s, %s, %s, %s, %s )"
                     cr.execute(sql, (code, fund_name, acc_returns[-1], annual_rate, max_drow_down, volatility, sharp_ratio ))
                 if count % 1000 == 0:
                     conn.commit()
