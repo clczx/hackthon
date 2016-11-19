@@ -19,6 +19,8 @@ mysql = MySQL(app)
 ISOTIMEFORMAT='%Y-%m-%d'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
+default_fund = "000001"
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     username = None
@@ -39,7 +41,7 @@ def fundselector():
 def fundinfo():
     fundinfo = None
     funddata = None
-    fundquery = None
+    fundquery = default_fund
     username = None
     if 'username' in session:
 	username = session["username"]
