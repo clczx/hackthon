@@ -24,7 +24,7 @@
           <a class="navbar-brand" href="/" style="padding-left:50px"><img src="static/img/logo.PNG" height=40px  style="padding-bottom: 10px"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
-          <form class="navbar-form navbar-left" action="/fundinfo" method="post">
+          <form class="navbar-form navbar-left search-margin-left" action="/fundinfo" method="post">
             <input type="text" class="form-control" placeholder="Search..." name="fundquery">
           </form>
           <ul class="nav navbar-nav navbar-right">
@@ -55,7 +55,7 @@
 		<p><a href=# id="savings_fund" style="color:#963947"><img src="static/img/red-star.png"/ style="width:20px">加入收藏</a></p>
 
 		 <div class="row margin_l_top">
-		  <h5 class="sub-header">>基本信息</h5>
+
 		  <div class="table-responsive table table-striped">
 		  	<div class＝"bonus" style="overflow:hidden;">
 		  		<div class="bonus-item">
@@ -140,10 +140,10 @@
 		    },
 		    radar: {
 		        indicator: [
-		            {name: '市场', max: 1},
-		            {name: '规模', max: 1},
-		            {name: '价值', max: 1},
-		            {name: '动量', max: 1},
+		            {name: '市场相关', max: 1},
+		            {name: '标的规模', max: 1},
+		            {name: '价值投资', max: 1},
+		            {name: '追涨杀跌', max: 1},
 		        ],
 		        shape: 'circle',
 		        splitNumber: 5,
@@ -199,7 +199,7 @@
 		    backgroundColor: '#2c343c',
 
 		    title: {
-		        text: '基金对于股票市值偏好',
+		        text: '标地规模',
 		        left: 'center',
 		        top: 20,
 		        textStyle: {
@@ -248,6 +248,7 @@
 
 		var myChart3 = echarts.init(document.getElementById('main3'));
 		option3 = {
+			title: {text: '价值投资' },
 		    tooltip : {
 		        formatter: "{a} <br/>{b} : {c}%"
 		    },
@@ -283,10 +284,10 @@
 		    },
 		    radar: {
 		        indicator: [
-		            {name: '市场', max: 1},
-		            {name: '规模', max: 1},
-		            {name: '价值', max: 1},
-		            {name: '动量', max: 1},
+		            {name: '市场相关', max: 1},
+		            {name: '标的规模', max: 1},
+		            {name: '价值投资', max: 1},
+		            {name: '追涨杀跌', max: 1}
 		        ],
 		        shape: 'circle',
 		        splitNumber: 5,
