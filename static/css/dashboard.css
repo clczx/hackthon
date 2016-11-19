@@ -44,7 +44,7 @@ body {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: black;
     border-right: 1px solid #eee;
   }
 }
@@ -60,12 +60,24 @@ body {
   padding-left: 20px;
 }
 .nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:hover{
+  background-color: #963947;
+  color:white;
+}
+.nav > li > a:hover{
+  background-color: #963947;
+  color:white;
+}
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: #963947;
 }
-
+a{
+   color: white;
+}
+.font-white{
+  color: white;
+}
 
 /*
  * Main content
@@ -103,3 +115,54 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.na-bac{
+  background: #963947;
+}
+
+
+.bonus{
+  overflow: hidden;
+}
+.bonus-item{
+  float: left;
+  margin-right: 70px;
+}
+.rate-text{
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.rate{
+  font-size: 35px;
+
+}
+
+.fund-name {
+  font-size: 35px;
+}
+
+.fund-code{
+  font-size: 25px;
+}
+
+.font-size-m {
+  font-size: 20px;
+}
+
+.keywords {
+  font-size: 20px;
+  color:#3c766d;
+}
+
+.margin_l_top {
+  margin-left: 5px;
+  margin-top: 30px;
+}
+
+
+
+
+
+
+

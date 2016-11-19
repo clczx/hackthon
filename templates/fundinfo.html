@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/" style="padding-left:50px"><img src="static/img/logo.PNG" height=40px></a>
+          <a class="navbar-brand" href="/" style="padding-left:50px"><img src="static/img/logo.PNG" height=40px  style="padding-bottom: 10px"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 60px;">
           <form class="navbar-form navbar-left" action="/fundinfo" method="post">
@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">查询</a></li>
+            <li class="active na-bac font-white"><a href="#">查询</a></li>
             <li><a href="fundstar">收藏</a></li>
             <li><a href="#fundselector">挑选</a></li>
           </ul>
@@ -48,58 +48,65 @@
 	{%if not fund%}
 	<h3 class="page-header">基金不存在</h3>
 	{%else%}
-		<h3 class="page-header">{{ fund["fund_name"] }}</h3>
-		<h4>基金代码:{{ fund["code"] }}</h4>
-          <div class="row">
-            <div class="col-sm-5 placeholder">
-				<h4>关键词: {{ fund["tags"] }} 评级: {{ fund["level"] }}</h4><a href=# id="savings_fund">加入收藏</a>
-            </div>
-		  </div>
+		<p class="fund-name">{{ fund["fund_name"] }}</p>
+		<p class="fund-code">{{ fund["code"] }}</p>
+		<p><span class="font-size-m">关键词: </span><span class="keywords">{{ fund["tags"] }}</span><p>
+		<p><span class="font-size-m">评级: </span>{{ fund["level"] }}</span><p>
+		<p><a href=# id="savings_fund" style="color:#963947"><img src="static/img/red-star.png"/ style="width:20px">加入收藏</a></p>
+
+		 <div class="row margin_l_top">
 		  <h5 class="sub-header">>基本信息</h5>
-		  <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>累计收益</th>
-                  <th>年化收益</th>
-                  <th>最大回撤</th>
-                  <th>波动率</th>
-                  <th>夏普比例</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-					<td>{{ "%.2f%%" % (fund["acc_return"]*100) }}</td>
-					<td>{{ "%.2f%%" % (fund["annaul_return"]*100) }}</td>
-					<td>{{ "%.2f%%" % (fund["max_drawdown"]*100) }}</td>
-					<td>{{ "%.2f%%" % (fund["volatility"]*100) }}</td>
-					<td>{{ "%.2f" % fund["sharp_ratio"] }}</td>
-                </tr>
-			  </tbody>
-			</table>
+		  <div class="table-responsive table table-striped">
+		  	<div class＝"bonus" style="overflow:hidden;">
+		  		<div class="bonus-item">
+		  			<p class="rate-text">累计收益</p>
+		  			<p class="rate">{{ "%.2f%%" % (fund["acc_return"]*100) }}</p>
+		  		</div>
+		  		<div class="bonus-item">
+		  			<p class="rate-text">年化收益</p>
+		  			<p class="rate">{{ "%.2f%%" % (fund["annaul_return"]*100) }}</p>
+		  		</div>
+		  		<div class="bonus-item">
+		  			<p class="rate-text">最大回撤</p>
+		  			<p class="rate">{{ "%.2f%%" % (fund["max_drawdown"]*100) }}</p>
+		  		</div>
+
+		  		<div class="bonus-item">
+		  			<p class="rate-text">波动率</p>
+		  			<p class="rate">{{ "%.2f%%" % (fund["volatility"]*100) }}</p>
+		  		</div>
+
+		  		<div class="bonus-item">
+		  			<p class="rate-text">夏普比例</p>
+		  			<p class="rate">{{ "%.2f" % fund["sharp_ratio"] }}</p>
+		  		</div>
+		  </div>
+		</div>
+
 		{%if funddata%}
 		  <h5 class="sub-header">>维度解析</h5>
-		  <div id="main" style="height:400px;width:600px;"></div>
+		  <div id="main" style="height:400px;width:600px;margin-left: 20%;"></div>
 
-		  <div class="table-responsive">
-            <table class="table table-striped">
-              <tbody>
-                <tr>
-                  <td>
-					<div id="market_chart"  style="height:400px; width:400px;">
-					</div>
-                  </td>
-                  <td><div id="main2" style="height:400px;width:400px;float:left;"></div></td>
-                </tr>
-                <tr>
-                  <td><div id="main3" style="height:400px;width:400px;float:left;"></div></td>
-				  <td><img src="static/pic1.png" height=400px width=400px></td>
-				</tr>
-			  </tbody>
-			</table>
-		  <h5 class="sub-header">>变化趋势</h5>
-	<div id="main_" style="height:400px;width:600px;"></div>
-	</div>
+		  <div class="row margin_l_top">
+			  <div class="table-responsive">
+	            <table class="table table-striped">
+	              <tbody>
+	                <tr>
+	                  <td>
+						<div id="market_chart"  style="height:400px; width:400px;"></div>
+	                  </td>
+	                  <td><div id="main2" style="height:400px;width:400px;float:left;"></div></td>
+	                </tr>
+	                <tr>
+	                  <td><div id="main3" style="height:400px;width:400px;float:left;"></div></td>
+					  <td><img src="static/img/pic1.png" height=400px width=400px></td>
+					</tr>
+				  </tbody>
+				</table>
+			</div>
+		  </div>
+	<h5 class="sub-header">>变化趋势</h5>
+	<div id="main_" style="height:400px;width:600px;margin-left: 20%;"></div>
 </body>
 
     <script type="text/javascript">
