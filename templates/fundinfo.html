@@ -106,7 +106,11 @@
 	                </tr>
 	                <tr>
 	                  <td><div id="main3" style="height:400px;width:400px;float:left;"></div></td>
-					  <td><img src="static/img/pic1.png" height=400px width=400px></td>
+					  {%if funddata["percentile"][0] > 0.5%}
+					  <td><h3>买涨</h3><br><img src="static/img/up.jpg" height=250px width=250px></td>
+					  {%else%}
+					  <td><h3>买跌</h3><br><img src="static/img/down.jpg" height=250px width=250px></td>
+					  {%endif%}
 					</tr>
 				  </tbody>
 				</table>
@@ -127,7 +131,7 @@
 		};
 
 		option = {
-		    backgroundColor: '#161627',
+		    backgroundColor: '#fff',
 		    title: {
 		        text: '',
 		        left: 'center',
@@ -156,15 +160,15 @@
 		        splitNumber: 5,
 		        name: {
 		            textStyle: {
-		                color: 'rgb(238, 197, 102)'
+		                color: 'rgb(234,107,107)'
 		            }
 		        },
 		        splitLine: {
 		            lineStyle: {
 		                color: [
-		                    'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
-		                    'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
-		                    'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+		                    'rgba(234,107,107, 0.5)', 'rgba(234,107,107, 0.6)',
+		                    'rgba(234,107,107, 0.7)', 'rgba(234,107,107, 0.8)',
+		                    'rgba(234,107,107, 0.9)', 'rgba(234,107,107, 1)'
 		                ].reverse()
 		            }
 		        },
@@ -173,7 +177,7 @@
 		        },
 		        axisLine: {
 		            lineStyle: {
-		                color: 'rgba(238, 197, 102, 0.5)'
+		                color: 'rgba(234,107,107, 0.5)'
 		            }
 		        }
 		    },
@@ -193,7 +197,7 @@
 		            },
 		            areaStyle: {
 		                normal: {
-		                    opacity: 0.1
+		                    opacity: 0.4
 		                }
 		            }
 		        },
@@ -203,14 +207,14 @@
 
 		var myChart2 = echarts.init(document.getElementById('main2'));
 		option2 = {
-		    backgroundColor: '#2c343c',
+		    backgroundColor: '#f9f9f9',
 
 		    title: {
 		        text: '标地规模',
 		        left: 'center',
 		        top: 20,
 		        textStyle: {
-		            color: '#ccc'
+		            color: '#000'
 		        }
 		    },
 		    series : [
@@ -227,14 +231,14 @@
 		            label: {
 		                normal: {
 		                    textStyle: {
-		                        color: 'rgba(255, 255, 255, 0.3)'
+		                        color: 'rgba(0, 0, 0, 0.3)'
 		                    }
 		                }
 		            },
 		            labelLine: {
 		                normal: {
 		                    lineStyle: {
-		                        color: 'rgba(255, 255, 255, 0.3)'
+		                        color: 'rgba(0, 0, 0, 0.3)'
 		                    },
 		                    smooth: 0.2,
 		                    length: 10,
@@ -271,7 +275,7 @@
 
 		var myChart_ = echarts.init(document.getElementById('main_'));
 		option_ = {
-		    backgroundColor: '#161627',
+		    backgroundColor: '#fff',
 		    title: {
 		        text: '',
 		        left: 'center',
@@ -300,15 +304,15 @@
 		        splitNumber: 5,
 		        name: {
 		            textStyle: {
-		                color: 'rgb(238, 197, 102)'
+		                color: 'rgb(234,107,107)'
 		            }
 		        },
 		        splitLine: {
 		            lineStyle: {
 		                color: [
-		                    'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
-		                    'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
-		                    'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+		                    'rgba(234,107,107, 0.5)', 'rgba(234,107,107, 0.6)',
+		                    'rgba(234,107,107, 0.7)', 'rgba(234,107,107, 0.8)',
+		                    'rgba(234,107,107, 0.9)', 'rgba(234,107,107, 1)'
 		                ].reverse()
 		            }
 		        },
@@ -317,9 +321,10 @@
 		        },
 		        axisLine: {
 		            lineStyle: {
-		                color: 'rgba(238, 197, 102, 0.5)'
+		                color: 'rgba(234,107,107, 0.5)'
 		            }
 		        }
+
 		    },
 		    series: [
 		        {
@@ -353,7 +358,7 @@
 		            },
 		            areaStyle: {
 		                normal: {
-		                    opacity: 0.1
+		                    opacity: 0.4
 		                }
 		            }
 		        },
