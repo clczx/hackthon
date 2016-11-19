@@ -131,11 +131,11 @@
                 data['result'].map(function(items) {
 					var tr = $("<tr><td><a href='/fundinfo?fund_code="+items[0]+"' class='wind_red'>"+items[0]+"</td></tr>");
                     tr.append("<td><a href='/fundinfo?fund_code="+items[0]+"' class='wind_red'>"+items[1]+"</td>");
-                    tr.append("<td>" + items[2] + "</td>");
-                    tr.append("<td>" + items[3] + "</td>");
-                    tr.append("<td>" + items[4] + "</td>");
-                    tr.append("<td>" + items[5] + "</td>");
-                    tr.append("<td>" + items[6] + "</td>");
+                    tr.append("<td>" +  (items[2]*100).toFixed(2) + "%" + "</td>");
+                    tr.append("<td>" + (items[3]*100).toFixed(2) + "%" + "</td>");
+                    tr.append("<td>" + (items[4]*100).toFixed(2) + "%" + "</td>");
+                    tr.append("<td>" + (items[5]*100).toFixed(2) + "%" + "</td>");
+                    tr.append("<td>" + items[6].toFixed(2) + "</td>");
                     tbody.append(tr);
                 });
 			} else {

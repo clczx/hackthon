@@ -29,13 +29,7 @@
             <input type="text" class="form-control" placeholder="Search..." name="fundquery">
           </form>
           <ul class="nav navbar-nav navbar-right">
-            {%if not username%}
-			<li><a href="/login">登录</a></li>
-			{%else%}
-			<li><a href="#">{{username}}</a></li>
-			<li><a href="/logout">登出</a></li>
-			{%endif%}
-
+            <li><a href="#">Help</a></li>
           </ul>
         </div>
       </div>
@@ -46,7 +40,7 @@
           <ul class="nav nav-sidebar">
             <li class="active na-bac font-white"><a href="#">查询</a></li>
             <li><a href="fundstar">收藏</a></li>
-            <li><a href="fundselector">挑选</a></li>
+            <li><a href="#fundselector">挑选</a></li>
           </ul>
 		</div>
 	  </div>
