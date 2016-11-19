@@ -41,7 +41,7 @@ def fundselector():
 def fundinfo():
     fundinfo = None
     funddata = None
-    fundquery = default_fund
+    fundquery = None
     username = None
     if 'username' in session:
 	username = session["username"]
@@ -49,6 +49,8 @@ def fundinfo():
         fundquery = request.form["fundquery"]
     if request.method == "GET":
         fundquery = request.args.get("fund_code")
+    if not fundquery:
+	fundquery = default_fund
     if fundquery:
         print fundquery
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
