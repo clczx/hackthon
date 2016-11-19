@@ -73,12 +73,23 @@ def fundstar():
     entries = []
     for rz in cur.fetchall():
         funds.append(rz["fund_code"])
+    tag_count = {}
     for code in funds:
         sql = "select * from fund_overview where code=%s" % (code)
         cur.execute(sql)
         ret = cur.fetchall()[0]
         entries.append([ret["code"], ret["fund_name"], ret["tags"]])
-    return render_template('fundstar.html', entries = entries, username=username)
+        if ret["tags"]:
+            for tag in ret["tags"].split(','):
+                tag_count[tag] = tag_count.get(tag, 0) + 1
+
+    tag_list = []
+    result_list = sorted(tag_count.iteritems(), key=lambda d:d[1], reverse = False)
+    for i in range(3):
+        tag_list.append(result_list[i][0])
+    tags = (",").join(tag_list) if tag_list else ""
+
+    return render_template('fundstar.html', entries = entries, username=username, tags = tags)
 
 
 @app.route('/api/suggest', methods=['POST', 'GET'])
